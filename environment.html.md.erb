@@ -7,11 +7,11 @@ owner: Tobias Fuhrimann
 
 <%= vars.product_short %> lets you externalize configuration - storing data such as encryption keys or external resource addresses in <a href="../devguide/deploy-apps/environment-variable.html" target="_blank">environment variables</a>.
 
-At runtime, environment variables are exposed to the application through its environment. You can use these for example to run Rails in production mode setting the `RAILS_ENV` environment variable.
+At runtime, environment variables are exposed to the application through its environment. You can use these for example to run your App in production mode setting the `RACK_ENV` environment variable.
 
 <pre class="terminal">
-$ cf set-env cf-sample-app-ruby RAILS_ENV production
-Setting env variable 'RAILS_ENV' to 'production' for app cf-sample-app-ruby in org MyOrg / space MySpace as user@smydomain.com...
+$ cf set-env my-ruby-app RACK_ENV production
+Setting env variable 'RACK_ENV' to 'production' for app my-ruby-app in org MyOrg / space MySpace as user@smydomain.com...
 OK
 TIP: Use 'cf restage' to ensure your env variable changes take effect
 </pre>
@@ -19,8 +19,8 @@ TIP: Use 'cf restage' to ensure your env variable changes take effect
 Then restage your app as suggested using
 
 <pre class="terminal">
-$ cf restage cf-sample-app-ruby
-Restaging app cf-sample-app-ruby in org MyOrg / space MySpace as user@mydomain.com...
+$ cf restage my-ruby-app
+Restaging app my-ruby-app in org MyOrg / space MySpace as user@mydomain.com...
 -----> Downloaded app package (8.0K)
 -----> Downloaded app buildpack cache (2.3M)
 -------> Buildpack version 1.6.14
@@ -28,7 +28,7 @@ Restaging app cf-sample-app-ruby in org MyOrg / space MySpace as user@mydomain.c
 ...
 </pre>
 
- All environment variables are accessed using the `process.env` namespace from within your Node.js app.
+ All environment variables are accessed using `ENV['MY_VARIABLE']` from within your Ruby app.
 
 <div style="text-align:center;margin:3em;">
   <a href="./bind-service.html" class="btn btn-primary">I've set my environment variable</a>

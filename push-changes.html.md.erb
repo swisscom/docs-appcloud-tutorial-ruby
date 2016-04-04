@@ -5,55 +5,27 @@ owner: Tobias Fuhrimann
 
 <strong><%= modified_date %></strong>
 
-In this step you’ll learn how to propagate a local change to the application through to <%= vars.product_short %>. As an example, you’ll modify the application to add an additional dependency and the code to use it.
+In this step you’ll learn how to propagate a local change to the application through to <%= vars.product_short %>. As a simple change, we'll modify the title which the app shows.
 
-Modify Gemfile to include a dependency for the cowsay gem by including a line gem 'cowsay':
+Change the `%h1` property in the `views/index.haml` file to 'I am awesome!'. Your final result should look something like this:
 
-```Gemfile
-source 'https://rubygems.org'
-
-ruby "2.3.0"
-
-gem 'cowsay'
-
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.6'
-# Use mysql as the database for Active Record
-
-...
-```
-
-Modify `app/views/layouts/application.html.erb` so that it uses this gem, by changing the file so that the `<body>` tag contains the following:
-
-```erb
-...
-
-<body>
-
-  <pre>
-  <%= Cowsay.say("Hello") %>
-  </pre>
-
-<%= yield %>
-
-</body>
-
-...
+```haml
+%h1 Congratulations!
+%p Welcome to the Swisscom Application Cloud!
 ```
 
 Now test locally:
 
 <pre class="terminal">
-$ bundle install
-$ rails server
+$ bundle exec ruby app.rb -p 3000
 </pre>
 
-Visiting your application at [http://localhost:3000](http://localhost:3000), you should see a cute ASCII picture displayed.
+Visiting your application at [http://localhost:3000](http://localhost:3000), you should see the changed title. **You are awesome!**
 
 Now deploy. All you need to do is `cf push` again:
 
 <pre class="terminal">
-$ cf push cf-sample-app-ruby
+$ cf push my-ruby-app
 </pre>
 
 Finally, check that everything is working by visiting your app's URL from your web browser.
