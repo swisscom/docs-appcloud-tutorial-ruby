@@ -42,12 +42,12 @@ Restaging app my-app in org MyOrg / space MySpace as user@mydomain.com...
 ...
 </pre>
 
-Now we want to consume our new MariaDB from within our application. Change the `Gemfile` to add the `sequel` and `json` modules to your dependencies:
+Now we want to consume our new MariaDB from within our application. Change the `Gemfile` to add the `sequel`, `mysql` and `json` modules to your dependencies:
 
 ```ruby
 source 'https://rubygems.org'
 
-ruby "2.3.0"
+ruby "2.2.4"
 
 gem 'puma'
 gem 'rack-coffee'
@@ -58,6 +58,7 @@ group :web do
   gem 'haml'
   gem 'sinatra'
   gem 'sass'
+  gem 'mysql'
 end
 
 group :development do
@@ -83,6 +84,18 @@ Now edit your `app.rb` file to use these modules to connect to the database spec
 Bundler.require :web
 Bundler.require :development if development?
 
+if ENV['VCAP_SERVICES']
+  vcap_services = JSON.parse(ENV['VCAP_SERVICES'])
+  DB = Sequel.connect(vcap_services['mariadb'][0]['credentials']['uri'])
+else
+  DB = Sequel.connect('mysql://localhost:3306/dbname')
+end
+
+DB.create_table? :kittens do
+  primary_key :id
+  String :name
+end
+
 get '/style.css' do
   scss :style
 end
@@ -91,16 +104,9 @@ get '/' do
   haml :index
 end
 
-DB = Sequel.connect(JSON.parse(ENV['VCAP_SERVICES'].mariadb[0].database_uri))
-
-DB.create_table :kittens do
-  primary_key :id
-  String :name
-end
-
 get '/db' do
   content_type :json
-  foo = DB[:kittens]
+  foo = DB[:kittens].all
   foo.to_json
 end
 
@@ -110,6 +116,14 @@ end
 ```
 
 This ensures that when you access your app using the `/db` route, it will return all the kittens stored in your database. Currently there are no kittens so it will return an empty array. Sad...
+
+The line
+
+```ruby
+if ENV['VCAP_SERVICES']
+```
+
+checks if the app is running in the cloud. If not, it falls back to the default local MariaDB url. This allows you to run your app locally as well as in the cloud without having to configure anything differently. So let's push it to the cloud using
 
 <pre class="terminal">
 $ cf push my-ruby-app
