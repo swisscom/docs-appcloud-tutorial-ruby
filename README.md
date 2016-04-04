@@ -1,2 +1,3 @@
-# docs-appcloud-tutorial-ruby
-A tutorial about how to use Java with Cloud Foundry and the Swisscom Application Cloud
+# Ruby on Cloud Foundry Tutorial
+
+A tutorial about how to use Ruby with Cloud Foundry and the Swisscom Application Cloud
