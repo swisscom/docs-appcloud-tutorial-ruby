@@ -1,0 +1,37 @@
+---
+title: Run the App Locally
+owner: Tobias Fuhrimann
+---
+
+<strong><%= modified_date %></strong>
+
+Running apps locally in your own dev environment does require some effort. Rails typically requires a database - and this sample application uses MySQL or MariaDB. Check out <a href="https://mariadb.com/kb/en/mariadb/binary-packages/" target="_blank">these instructions</a> for a local install.
+
+The Rails app also uses a database, so you’ll have to create the appropriate database and table using the rake task:
+
+<pre class="terminal">
+$ bundle exec rake db:create db:migrate
+
+&gt; cf-sample-app-ruby@0.0.0 start /.../cf-sample-app-ruby
+&gt; node ./bin/www
+</pre>
+
+Now start your application locally using the `npm start` command:
+
+<pre class="terminal">
+$ rails server
+=> Booting WEBrick
+=> Rails 4.2.6 application starting in development on http://localhost:3000
+=> Run `rails server -h` for more startup options
+=> Ctrl-C to shutdown server
+
+...
+</pre>
+
+Open [http://localhost:3000](http://localhost:3000) with your web browser. You should see your app running locally.
+
+To stop the app from running locally, in the CLI, press `Ctrl+C` to exit.
+
+<div style="text-align:center;margin:3em;">
+  <a href="./push-changes.html" class="btn btn-primary">I can run my App locally</a>
+</div>

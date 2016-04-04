@@ -1,0 +1,63 @@
+---
+title: Push Local Changes
+owner: Tobias Fuhrimann
+---
+
+<strong><%= modified_date %></strong>
+
+In this step you’ll learn how to propagate a local change to the application through to <%= vars.product_short %>. As an example, you’ll modify the application to add an additional dependency and the code to use it.
+
+Modify Gemfile to include a dependency for the cowsay gem by including a line gem 'cowsay':
+
+```Gemfile
+source 'https://rubygems.org'
+
+ruby "2.3.0"
+
+gem 'cowsay'
+
+# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'rails', '4.2.6'
+# Use mysql as the database for Active Record
+
+...
+```
+
+Modify `app/views/layouts/application.html.erb` so that it uses this gem, by changing the file so that the `<body>` tag contains the following:
+
+```erb
+...
+
+<body>
+
+  <pre>
+  <%= Cowsay.say("Hello") %>
+  </pre>
+
+<%= yield %>
+
+</body>
+
+...
+```
+
+Now test locally:
+
+<pre class="terminal">
+$ bundle install
+$ rails server
+</pre>
+
+Visiting your application at [http://localhost:3000](http://localhost:3000), you should see a cute ASCII picture displayed.
+
+Now deploy. All you need to do is `cf push` again:
+
+<pre class="terminal">
+$ cf push cf-sample-app-ruby
+</pre>
+
+Finally, check that everything is working by visiting your app's URL from your web browser.
+
+<div style="text-align:center;margin:3em;">
+  <a href="./environment.html" class="btn btn-primary">I can push local changes</a>
+</div>

@@ -1,0 +1,33 @@
+---
+title: Set Up
+owner: Tobias Fuhrimann
+---
+
+<strong><%= modified_date %></strong>
+
+In this step you will install the Cloud Foundry CLI, which can be used for managing and scaling your applications and services.
+
+<div style="text-align:center;margin:3em;">
+  <a href="../cf-cli/install-go-cli.html" target="_blank" class="btn btn-primary">Install the cf CLI</a>
+</div>
+
+Once installed, you can use the cf CLI from your command shell.
+
+Log in using the e-mail address and password you used when creating your <%= vars.product_short %> account:
+
+<pre class="terminal">
+$ cf login -a <%= vars.api_endpoint %>
+API endpoint: <%= vars.api_endpoint %>
+
+Email&gt; user@mydomain.com
+
+Password&gt;
+</pre>
+
+Authenticating is required to use the CLI tool. The `-a` sets the API endpoint to the one of <%= vars.product_full %>.
+
+Note that if you’re behind a firewall that requires use of a proxy to connect with external HTTP/HTTPS services, you can set the `HTTP_PROXY` or `HTTPS_PROXY` environment variables in your local development environment before running any command.
+
+<div style="text-align:center;margin:3em;">
+  <a href="./prepare.html" class="btn btn-primary">I have installed the CLI</a>
+</div>

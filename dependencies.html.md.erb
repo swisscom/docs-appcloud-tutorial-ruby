@@ -1,0 +1,52 @@
+---
+title: Declare App Dependencies
+owner: Tobias Fuhrimann
+---
+
+<strong><%= modified_date %></strong>
+
+<%= vars.product_short %> recognizes an app as a Ruby app by the existence of a `Gemfile` file in the root directory. For your own apps, you can create one by running `npm init --yes`.
+The demo app you deployed already has a `Gemfile`, and it looks something like this:
+
+```Gemfile
+source 'https://rubygems.org'
+
+ruby "2.2.4"
+
+# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'rails', '4.2.6'
+# Use mysql as the database for Active Record
+gem 'mysql2', '>= 0.3.13', '< 0.5'
+
+...
+```
+
+The `Gemfile` file specifies the dependencies that should be installed with your application. You can also use it to determine the version of Ruby that will be used to run your application on <%= vars.product_short %>.
+
+When an app is deployed, Heroku reads this file and installs the appropriate node version together with the dependencies using the `bundle install` command.
+
+A prerequisite to running any app locally is to install the dependencies locally as well. This particular Gemfile has a dependency `mysql2` which will only resolve if you have MySQL or MariaDB installed locally. Please <a href="https://mariadb.com/kb/en/mariadb/binary-packages" target="_blank">install MariaDB</a> before you proceed.
+
+Now run `bundle install` in your local directory to install the dependencies, preparing your system for running the app locally:
+
+<pre class="terminal">
+$ bundle install
+Using rake 10.4.2
+Using i18n 0.7.0
+Using json 1.8.2
+
+...
+
+Using puma 2.9.1
+Your bundle is complete!
+</pre>
+
+<p class="note">
+  <strong>Note</strong>: If you are getting <code>Your Ruby version is 2.3.0, but your Gemfile specified 2.2.4</code>, you can change the Ruby version in the <code>Gemfile</code>. Be aware though, that Cloud Foundry only accepts the Ruby versions specified <a href="https://github.com/cloudfoundry/ruby-buildpack/blob/develop/manifest.yml" target="_blank">here</a>.
+</p>
+
+Once dependencies are installed, you will be ready to run your app locally.
+
+<div style="text-align:center;margin:3em;">
+  <a href="./run-locally.html" class="btn btn-primary">I've installed the App dependencies locally</a>
+</div>
