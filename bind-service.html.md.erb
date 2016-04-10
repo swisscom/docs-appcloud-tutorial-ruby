@@ -78,7 +78,7 @@ Using tilt 1.4.1
 ...
 </pre>
 
-Now edit your `app.rb` file to use these modules to connect to the database specified in your `VCAP_SERVICES` environment variable. We do this by requiring the `mongoose` module and adding a route for the `/db` endpoint which returns the `kittens` collection of our MongoDB:
+Now edit your `app.rb` file to use these modules to connect to the database specified in your `VCAP_SERVICES` environment variable. We do this by adding a connection to the database, creating a `kittens` table and a route for the `/db` endpoint which returns the table of our MariaDB:
 
 ```ruby
 Bundler.require :web
