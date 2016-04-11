@@ -109,11 +109,18 @@ get '/' do
   haml :index
 end
 
+# endpoint to create a new kitten (e.g. /create-kitten?name=garfield)
+post '/create-kitten' do
+  kitten_name = params[:name]
+  DB[:kittens].insert(:name => kitten_name)
+  'Kitten added'
+end
+
 # here you can retrieve all the kittens in our MariaDB
 get '/db' do
   content_type :json
-  foo = DB[:kittens].all
-  foo.to_json
+  kittens = DB[:kittens].all
+  kittens.to_json
 end
 
 # our not-found route which serves the 404 view
@@ -123,6 +130,14 @@ end
 ```
 
 This ensures that when you access your app using the `/db` route, it will return all the kittens stored in your database. Currently there are no kittens so it will return an empty array. Sad...
+
+But you can create new kittens by POSTing to the `create-kitten` endpoint with the kitten's name as a URL parameter. You can do so using curl or any similar tool:
+
+<pre class="terminal">
+$ curl -X POST http://localhost:3000/create-kitten?name=garfield
+</pre>
+
+and then retrieve your new kitten at the `/db` endpoint.
 
 The line
 
