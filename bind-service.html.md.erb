@@ -47,8 +47,6 @@ Now we want to consume our new MariaDB from within our application. Change the `
 ```ruby
 source 'https://rubygems.org'
 
-ruby "2.2.4"
-
 gem 'puma'
 gem 'rack-coffee'
 
@@ -113,7 +111,7 @@ end
 post '/create-kitten' do
   kitten_name = params[:name]
   DB[:kittens].insert(:name => kitten_name)
-  'Kitten #{kitten_name} added'
+  "Kitten #{kitten_name} added"
 end
 
 # here you can retrieve all the kittens in our MariaDB
@@ -131,7 +129,7 @@ end
 
 This ensures that when you access your app using the `/db` route, it will return all the kittens stored in your database. Currently there are no kittens so it will return an empty array. Sad...
 
-But you can create new kittens by POSTing to the `create-kitten` endpoint with the kitten's name as a URL query parameter. You can do so using curl or any similar tool:
+But you can create new kittens by POST-ing to the `/create-kitten` endpoint with the kitten's name as a URL query parameter. You can do so using curl or any similar tool:
 
 <pre class="terminal">
 $ curl -X POST "http://localhost:3000/create-kitten&#63;name&#61;garfield"
