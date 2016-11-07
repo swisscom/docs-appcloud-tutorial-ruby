@@ -5,7 +5,7 @@ owner: Tobias Fuhrimann
 
 <strong><%= modified_date %></strong>
 
-<%= vars.product_short %> recognizes an app as a Ruby app by the existence of a `Gemfile` file in the root directory.
+<%= vars.product_short %> recognizes an app as a Ruby app by the existence of a `Gemfile` and a `Gemfile.lock` file in the root directory.
 
 The demo app you deployed already has a `Gemfile`, and it looks something like this:
 
@@ -43,7 +43,7 @@ Using tilt 1.4.1
 </pre>
 
 <p class="note">
-  <strong>Pro Tip</strong>: Cloud Foundry defaults to using the latest versiob of Ruby 2.2. It's good practice to specify the Ruby version to use in your <code>Gemfile</code>. Be aware though, that Cloud Foundry only accepts the Ruby versions specified <a href="https://github.com/cloudfoundry/ruby-buildpack/blob/develop/manifest.yml" target="_blank">here</a>.
+  <strong>Pro Tip</strong>: It's good practice to specify the Ruby version to use in your <code>Gemfile</code>. Be aware though, that Cloud Foundry only accepts the Ruby versions specified <a href="https://github.com/cloudfoundry/ruby-buildpack/blob/develop/manifest.yml" target="_blank">here</a>.
 </p>
 
 Once dependencies are installed, you will be ready to run your app locally.
