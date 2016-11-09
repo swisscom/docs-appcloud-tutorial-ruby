@@ -76,7 +76,7 @@ Using tilt 1.4.1
 ...
 </pre>
 
-Now edit your `app.rb` file to use these modules to connect to the database specified in your `VCAP_SERVICES` environment variable. We do this by adding a connection to the database, creating a `kittens` table and a route for the `/db` endpoint which returns the table of our MariaDB:
+Now edit your `app.rb` file to use these modules to connect to the database specified in your `VCAP_SERVICES` environment variable. We do this by adding a connection to the database, creating a `kittens` table and a route for the `/kittens` endpoint which returns the table of our MariaDB:
 
 ```ruby
 # require dependencies
@@ -107,18 +107,18 @@ get '/' do
   haml :index
 end
 
-# endpoint to create a new kitten (e.g. /create-kitten?name=garfield)
-post '/create-kitten' do
-  kitten_name = params[:name]
-  DB[:kittens].insert(:name => kitten_name)
-  "Kitten #{kitten_name} added"
-end
-
 # here you can retrieve all the kittens in our MariaDB
-get '/db' do
+get '/kittens' do
   content_type :json
   kittens = DB[:kittens].all
   kittens.to_json
+end
+
+# endpoint to create a new kitten (e.g. /kittens?name=garfield)
+post '/kittens' do
+  kitten_name = params[:name]
+  DB[:kittens].insert(:name => kitten_name)
+  "Kitten #{kitten_name} added"
 end
 
 # our not-found route which serves the 404 view
@@ -127,15 +127,15 @@ not_found do
 end
 ```
 
-This ensures that when you access your app using the `/db` route, it will return all the kittens stored in your database. Currently there are no kittens so it will return an empty array. Sad...
+This ensures that when you access your app using the `/kittens` route, it will return all the kittens stored in your database. Currently there are no kittens so it will return an empty array. Sad...
 
-But you can create new kittens by POST-ing to the `/create-kitten` endpoint with the kitten's name as a URL query parameter. You can do so using curl or any similar tool:
+But you can create new kittens by POST-ing to the `/kittens` endpoint with the kitten's name as a URL query parameter. You can do so using curl or any similar tool:
 
 <pre class="terminal">
-$ curl -X POST "http://localhost:3000/create-kitten&#63;name&#61;garfield"
+$ curl -X POST "http://localhost:3000/kittens&#63;name&#61;garfield"
 </pre>
 
-and then retrieve your new kitten at the `/db` endpoint.
+and then retrieve your new kitten at the `/kittens` endpoint.
 
 The line
 
